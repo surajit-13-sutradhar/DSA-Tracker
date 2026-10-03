@@ -1,18 +1,33 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import NotesPanel from './NotesPanel.jsx';
 
-/** One problem row: checkbox, running number, and link. */
-function Problem({ problem, done, onToggle }) {
+function Problem({ problem, done, onToggle, note, onNoteChange }) {
   const { id, title, link } = problem;
+  const [open, setOpen] = useState(false);
+  const hasNote = !!note;
+
   return (
-    <li className={`row${done ? ' done' : ''}`}>
-      <label className="chk">
-        <input type="checkbox" checked={done} onChange={() => onToggle(id)} />
-        <span className="box" aria-hidden="true" />
-      </label>
-      <span className="idx">{String(id + 1).padStart(3, '0')}</span>
-      <a className="ptitle" href={link} target="_blank" rel="noopener noreferrer">
-        {title}
-      </a>
+    <li className="row-item">
+      <div className={`row${done ? ' done' : ''}`}>
+        <label className="chk">
+          <input type="checkbox" checked={done} onChange={() => onToggle(id)} />
+          <span className="box" aria-hidden="true" />
+        </label>
+        <span className="idx">{String(id + 1).padStart(3, '0')}</span>
+        <a className="ptitle" href={link} target="_blank" rel="noopener noreferrer">
+          {title}
+        </a>
+        <button
+          className={`notes-btn${open ? ' open' : ''}${hasNote ? ' has' : ''}`}
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          title={hasNote ? 'Edit notes' : 'Add notes'}
+        >
+          {hasNote && <span className="dot" />}
+          Notes
+        </button>
+      </div>
+      {open && <NotesPanel note={note} onChange={(patch) => onNoteChange(id, patch)} />}
     </li>
   );
 }

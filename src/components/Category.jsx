@@ -1,7 +1,7 @@
 import Problem from './Problem.jsx';
 
 /** A collapsible topic section with its own progress bar. */
-export default function Category({ index, category, problems, done, open, onToggleOpen, onToggleProblem }) {
+export default function Category({ index, category, problems, done, notes, open, onToggleOpen, onToggleProblem, onNoteChange }) {
   const total = category.problems.length;
   const solved = category.problems.filter((p) => done.has(p.id)).length;
   const pct = total ? (solved / total) * 100 : 0;
@@ -26,7 +26,14 @@ export default function Category({ index, category, problems, done, open, onTogg
       </div>
       <ul className="rows" id={`body-${index}`} hidden={!open}>
         {problems.map((p) => (
-          <Problem key={p.id} problem={p} done={done.has(p.id)} onToggle={onToggleProblem} />
+          <Problem    
+            key={p.id}
+            problem={p}
+            done={done.has(p.id)}
+            onToggle={onToggleProblem}
+            note={notes[p.id]}
+            onNoteChange={onNoteChange}
+          />
         ))}
       </ul>
     </section>

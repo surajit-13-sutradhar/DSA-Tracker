@@ -239,3 +239,56 @@ a{color:inherit;}
   .stats{margin-left:0;}
   .topbar-inner{gap:12px;}
 }
+
+/* Notes + code panel */
+.row-item{list-style:none;}
+.notes-btn{
+  margin-left:auto; flex-shrink:0;
+  display:inline-flex; align-items:center; gap:6px;
+  background:transparent; color:var(--text-faint);
+  border:1px solid var(--border); border-radius:6px;
+  padding:3px 10px; font:inherit; font-size:12px; cursor:pointer;
+}
+.notes-btn:hover{border-color:var(--accent-dim); color:var(--text);}
+.notes-btn.open{color:var(--accent); border-color:var(--accent-dim);}
+.notes-btn.has{color:var(--text-dim);}
+.notes-btn .dot{width:6px; height:6px; border-radius:50%; background:var(--accent);}
+
+.notes{
+  margin:2px 10px 10px 54px;
+  padding:12px; background:var(--panel-2);
+  border:1px solid var(--border); border-radius:8px;
+  display:flex; flex-direction:column; gap:8px;
+}
+.notes-label{font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-faint);}
+.notes-text{
+  width:100%; resize:vertical; background:var(--bg); color:var(--text);
+  border:1px solid var(--border); border-radius:6px; padding:8px 10px;
+  font:inherit; font-size:13.5px; line-height:1.5;
+}
+.notes-text:focus,.notes-code:focus-within{outline:none; border-color:var(--accent-dim);}
+.notes-code-head{display:flex; align-items:center; justify-content:space-between; margin-top:4px;}
+.notes-code-head select{
+  background:var(--bg); color:var(--text-dim); border:1px solid var(--border);
+  border-radius:6px; padding:3px 8px; font:inherit; font-size:12px;
+}
+.notes-code{
+  background:var(--bg); border:1px solid var(--border); border-radius:6px;
+  overflow:auto; max-height:420px;
+}
+.notes-code textarea{outline:none;}
+.notes-code pre,.notes-code textarea{caret-color:var(--text);}
+
+/* syntax colours */
+.token.comment,.token.prolog,.token.doctype,.token.cdata{color:#6b7280; font-style:italic;}
+.token.punctuation{color:#9b9a95;}
+.token.keyword,.token.boolean,.token.important{color:#c792ea;}
+.token.string,.token.char,.token.template-string,.token.attr-value{color:#a5d6a7;}
+.token.number,.token.constant,.token.symbol{color:#f78c6c;}
+.token.function,.token.class-name{color:#82aaff;}
+.token.operator,.token.entity,.token.url{color:#89ddff;}
+.token.builtin,.token.property,.token.namespace{color:#ffcb6b;}
+
+@media (max-width: 860px){
+  .notes{margin-left:10px;}
+}

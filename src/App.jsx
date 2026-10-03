@@ -5,9 +5,11 @@ import TopBar from './components/TopBar.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import Category from './components/Category.jsx';
 import Footer from './components/Footer.jsx';
+import useNotes from './hooks/useNotes.js';
 
 export default function App() {
   const { done, toggle } = useProgress();
+  const {notes, updateNote} = useNotes();
   const [query, setQuery] = useState('');
   const [openSet, setOpenSet] = useState(() => new Set());
   const [activeIndex, setActiveIndex] = useState(null);
@@ -74,6 +76,8 @@ export default function App() {
               open={q ? true : openSet.has(index)}
               onToggleOpen={toggleOpen}
               onToggleProblem={toggle}
+              notes={notes}
+              onNoteChange={updateNote}
             />
           ))}
           {q && visible.length === 0 && <div className="empty-msg">No problems match your filter.</div>}
